@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+ 
+  cadvisor:
+    image: lypgcs/cadvisor-pulsar:v1.0
+    #command: -storage_driver="pulsar"  --storage_driver_host="host:6650" --storage_driver_pulsar_topic="stats"
+
+volumes:
+  cadvisor:
