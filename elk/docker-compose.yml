@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  
+  elasticsearch:
+   image: elasticsearch:7.5.1
+   environment:
+    - discovery.type=single-node  #使用单机模式启动
+   ports:
+    - 9200:9200
+#   networks:
+#    - springcloud-overlay
+
+  kibana:
+   image: kibana:7.5.1
+   ports:
+    - 5601:5601
+#   networks:
+#    - springcloud-overlay
+
+#  cadvisor:
+#    image: google/cadvisor
+#    command: -storage_driver=kafka -storage_driver_kafka_broker_list=192.168.1.60:9092(kafka服务IP:PORT) -storage_driver_kafka_topic=kafeidou
+#    depends_on:
+#      - elasticsearch
+
+  fluentd:
+   image: lypgcs/fluentd-es-kafka:v1.3.2
+   ports:
+    - 8888:8888
+    - 24224:24224
+   volumes:
+    - ./:/etc/fluent
+    - /var/log/fluentd:/var/log/fluentd
+#   networks:
+#    - springcloud-overlay
+
+#networks:
+#  springcloud-overlay:
+#    external:
+#     name: springcloud-overlay
