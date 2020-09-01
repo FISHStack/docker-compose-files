@@ -1,0 +1,124 @@
+
+# TODO 集群的各个redis配置文件可以尝试只配置需要的项,其他的默认内容不写 并且使用config管理配置文件 注意容器的固定IP
+
+
+services:
+    redis7001:
+      image: redis:5.0.9
+      ports:
+        - 7001:6379
+      configs:
+        - source: redis7001.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf --cluster-announce-ip 172.50.0.71
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.71
+  
+    redis7002:
+      image: redis:5.0.9
+      ports:
+        - 7002:6379
+      configs:
+        - source: redis7002.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf --cluster-announce-ip 172.50.0.72
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.72
+  
+    redis7003:
+      image: redis:5.0.9
+      ports:
+        - 7003:6379
+      configs:
+        - source: redis7003.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf --cluster-announce-ip 172.50.0.73
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.73
+  
+    redis7004:
+      image: redis:5.0.9
+      ports:
+        - 7004:6379
+      configs:
+        - source: redis7004.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf --cluster-announce-ip 172.50.0.74
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.74
+  
+    redis7005:
+      image: redis:5.0.9
+      ports:
+        - 7005:6379
+      configs:
+        - source: redis7005.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf  --cluster-announce-ip 172.50.0.75
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.75
+  
+    redis7006:
+      image: redis:5.0.9
+      ports:
+        - 7006:6379
+      configs:
+        - source: redis7006.conf
+        - targer: /redis.conf
+      command: 
+        - /bin/bash
+        - -c 
+        - |
+          /usr/local/bin/redis-server redis.conf --cluster-announce-ip 172.50.0.76
+      networks:
+        extnetwork:
+          ipv4_address: 172.50.0.76
+  
+
+networks:
+  extnetwork:
+    # driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.50.0.0/16
+          # gateway: 172.19.0.1
+
+configs:
+    redis7001.conf:
+        file: ./swarm_configs/redis7001.conf
+    redis7002.conf:
+        file: ./swarm_configs/redis7002.conf
+    redis7003.conf:
+        file: ./swarm_configs/redis7003.conf
+    redis7004.conf:
+        file: ./swarm_configs/redis7004.conf
+    redis7005.conf:
+        file: ./swarm_configs/redis7005.conf
+    redis7006.conf:
+        file: ./swarm_configs/redis7006.conf

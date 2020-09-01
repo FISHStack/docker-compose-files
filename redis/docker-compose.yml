@@ -1,0 +1,21 @@
+version: "3.7"
+
+# swarm疑问,创建出来的容器 端口映射的关系没有显示出来
+services:
+    myredis:
+        image: redis:5-alpine
+        configs:
+        - redis.conf   #默认挂载到容器中的路径是在根目录下 /{configName}  
+        # 可以使用这样的方式制定挂载路径
+        # - source: redis.conf
+        # - target: /redis.conf
+        ports:
+        - 6399:6389
+        deploy:
+            mode: replicated
+            replicas: 1
+        command: redis-server /redis.conf
+
+configs:
+    redis.conf:
+        file: ./redis.conf
