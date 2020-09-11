@@ -7,18 +7,19 @@ services:
         - 2281:2181
         volumes:
         - ./data/zkdata:/data
-    bk-init:
-        image: apache/bookkeeper:4.10.0
-        command: 
-             - /bin/bash
-             - -c 
-             - |
-             - bin/bookkeeper shell metaformat
+    # bk-init:
+    #     image: apache/bookkeeper:4.10.0
+    #     command: 
+    #          - /bin/bash
+    #          - -c 
+    #          - |
+    #          - bin/bookkeeper shell metaformat
         
     bk:
         image: apache/bookkeeper:4.10.0
         ports:
         - 3281:3281
+        - 38081:8080
         volumes:
         - ./data/bkdata:/data
         # - ./data/bkconf:/opt/bookkeeper/conf
