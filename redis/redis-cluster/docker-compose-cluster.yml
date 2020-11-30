@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+  redis7001:
+    image: redis:5.0.9
+    volumes:
+      # - redis7001:/etc/redis
+      - ./configs:/etc/configs
+    ports:
+      - 7001:7001
+      #集群TCP端口,redis端口固定加10000
+      - 17001:17001
+#    environment:
+#      - RIP=192.168.3.123
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs/redis7001
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.75
+    # networks:
+    #   extnetwork:
+    #     ipv4_address: 172.50.0.71
+
+  redis7002:
+    image: redis:5.0.9
+    volumes:
+      # - redis7002:/etc/redis
+      - ./configs:/etc/configs
+    ports:
+      - 7002:7002
+      - 17002:17002
+#    environment:
+#      - RIP=192.168.3.123
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs/redis7002
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.75
+    # networks:
+    #   extnetwork:
+    #     ipv4_address: 172.50.0.72
+
+
+  redis7003:
+    image: redis:5.0.9
+    volumes:
+      # - redis7003:/etc/redis
+      - ./configs:/etc/configs
+    ports:
+      - 7003:7003
+      - 17003:17003
+#    environment:
+#      - RIP=192.168.3.123
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs/redis7003
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.75
+    # networks:
+    #   extnetwork:
+    #     ipv4_address: 172.50.0.73
+
+# volumes:
+#   redis7001:
+#   redis7002:
+
+# networks:
+#   extnetwork:
+#     # driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.50.0.0/16
+#           # gateway: 172.19.0.1

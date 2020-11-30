@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+
+ guacamole:
+   image: guacamole/guacamole:1.2.0
+   environment:
+     - MYSQL_DATABASE=guacamole_db
+     - MYSQL_USER=root
+     - MYSQL_PASSWORD=123456
+     - GUACD_HOSTNAME=guacd
+     - MYSQL_HOSTNAME=192.168.3.75
+     - GUACAMOLE_HOME=/etc/guacamole
+   ports:
+     - 8899:8080
+   volumes:
+     - guacamole:/etc/guacamole
+         
+
+# mysql:
+#   image: mysql:5.7.31
+ 
+
+ guacd:
+   image: guacamole/guacd:1.2.0
+    
+
+
+volumes:
+ guacamole:

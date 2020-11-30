@@ -1,13 +1,37 @@
-version: "3.7"
+version: '3.7'
 
 services:
-  prometheus:
-    image: prom/prometheus:v2.16.0
-    volumes:
-      - prometheus:/etc/prometheus
-      - ./data:/prometheus-data
-    ports:
-      - 9090:9090
 
-volumes:
   prometheus:
+    image: prom/prometheus:v2.22.2
+    restart: always
+    ports:
+      - "22090:9090"
+    volumes:
+      - /usr/local/smartoilets/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /usr/local/smartoilets/prometheus/data:/prometheus/data
+    #    command: [
+    #            '--config.file=/config/prometheus.yml',
+    #            '--web.enable-lifecycle'
+    #    ]
+    environment:
+      TZ: Asia/Shanghai
+
+#  grafana:
+#    image: grafana/grafana:6.7.2
+#    logging: *default-logging
+#    restart: always
+#    environment:
+#        TZ: Asia/Shanghai
+#    ports:
+#      - 22000:3000
+#    volumes:
+#      - grafana_config:/etc/grafana
+#      - grafana_data:/var/lib/grafana
+
+#volumes:
+#  prometheus_config:
+#  prometheus_data:
+#  grafana_config:
+#  grafana_data:
+

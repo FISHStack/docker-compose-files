@@ -23,6 +23,10 @@ services:
         volumes:
         - ./data/bkdata:/data
         # - ./data/bkconf:/opt/bookkeeper/conf
+        - ./conf/bk_server3281.conf:/opt/bookkeeper/conf/bk_server.conf
+        - ./conf/log4j.properties:/opt/bookkeeper/conf/log4j.properties
+        - ./conf/log4j.shell.properties:/opt/bookkeeper/conf/log4j.shell.properties
+        - ./conf/log4j.cli.properties:/opt/bookkeeper/conf/log4j.cli.properties
         environment:
         - BK_zkServers=192.168.3.75:2281
         - BK_httpServerPort=8080
@@ -43,6 +47,7 @@ services:
         volumes:
         - ./data/bkdata2:/data
         # - ./data/bkconf2:/opt/bookkeeper/conf
+        - ./conf/bk_server3282.conf:/opt/bookkeeper/conf/bk_server.conf
         environment:
         - BK_zkServers=192.168.3.75:2281
         - BK_httpServerPort=8080
@@ -58,6 +63,7 @@ services:
         volumes:
         - ./data/bkdata3:/data
         # - ./data/bkconf3:/opt/bookkeeper/conf
+        - ./conf/bk_server3283.conf:/opt/bookkeeper/conf/bk_server.conf
         environment:
         - BK_zkServers=192.168.3.75:2281
         - BK_httpServerPort=8080

@@ -1,0 +1,83 @@
+version: "3.7"
+
+services:
+  redis7001:
+    image: redis:5.0.9
+    volumes:
+      - /usr/local/smartoilets/redis7001:/etc/configs
+    ports:
+      - 7001:7001
+      #集群TCP端口,redis端口固定加10000
+      - 17001:17001
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.redis7001==true
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.129
+
+  redis7002:
+    image: redis:5.0.9
+    volumes:
+      - /usr/local/smartoilets/redis7002:/etc/configs
+    ports:
+      - 7002:7002
+      - 17002:17002
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.redis7002==true
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.129
+
+
+  redis7003:
+    image: redis:5.0.9
+    volumes:
+      - /usr/local/smartoilets/redis7003:/etc/configs
+    ports:
+      - 7003:7003
+      - 17003:17003
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.redis7003==true
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        cd /etc/configs
+        /usr/local/bin/redis-server redis.conf --cluster-announce-ip 192.168.3.129
+
+# volumes:
+#   redis7001:
+#   redis7002:
+
+# networks:
+#   extnetwork:
+#     # driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.50.0.0/16
+#           # gateway: 172.19.0.1
